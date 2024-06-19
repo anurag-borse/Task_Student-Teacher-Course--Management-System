@@ -1,0 +1,91 @@
+﻿
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V10</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+
+    <link href="~/logincss/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/logincss/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link href="~/logincss/fonts/linearicons-free-v1.0.0/icon-font.min.css" rel="stylesheet" />
+    <link href="~/logincss/vendor/animate/animate.css" rel="stylesheet" />
+    <link href="~/logincss/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" />
+    <link href="~/logincss/vendor/animsition/css/animsition.min.css" rel="stylesheet" />
+    <link href="~/logincss/vendor/select2/select2.min.css" rel="stylesheet" />
+    <link href="~/logincss/css/main.css" rel="stylesheet" />
+    <link href="~/logincss/css/util.css" rel="stylesheet" />
+	<meta name="robots" content="noindex, follow">
+</head>
+<body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-t-50 p-b-90">
+
+
+
+				<form class="login100-form validate-form flex-sb flex-w" method="post" asp-controller="Home"  asp-action="Login"  >
+					<span class="login100-form-title p-b-51">
+						Login
+					</span>
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Email is required">
+						<input class="input100" type="text" name="username" placeholder="Email">
+						<span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
+						<input class="input100" type="password" name="password" placeholder="Password">
+						<span class="focus-input100"></span>
+					</div>
+				
+					<div class="container-login100-form-btn m-t-17">
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+				</form>
+
+
+
+			</div>
+		</div>
+	</div>
+	<div id="dropDownSelect1"></div>
+
+    <script src="~/logincss/vendor/jquery/jquery-3.2.1.min.js"></script>
+
+
+    <script src="~/logincss/vendor/animsition/js/animsition.min.js"></script>
+
+    <script src="~/logincss/vendor/bootstrap/js/popper.js"></script>
+
+
+    <script src="~/logincss/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="~/logincss/vendor/select2/select2.min.js"></script>
+
+    <script src="~/logincss/vendor/daterangepicker/moment.min.js"></script>
+
+    <script src="~/logincss/vendor/daterangepicker/daterangepicker.js"></script>
+
+    <script src="~/logincss/vendor/countdowntime/countdowntime.js"></script>
+    <script src="~/logincss/js/main.js"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-23581568-13');
+	</script>
+	<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"89591a1d89123fc0","version":"2024.4.1","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
+</body>
+</html>

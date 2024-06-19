@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Task_Student_Teacher_Course__Management_System.Models.Student>
+
+@{
+    ViewData["Title"] = "GetStudents";
+}
+
+<h1>GetStudents</h1>
+
+<p>
+    <a asp-action="AddStudent" asp-controller="Admin">Create New</a>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">StudentId</th>
+            <th scope="col">FirstName</th>
+            <th scope="col">LastName</th>
+            <th scope="col">DateOfBirth</th>
+            <th scope="col">Email</th>
+            <th scope="col">Course</th>
+            <th scope="col">Teacher</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>@item.StudentId</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.DateOfBirth</td>
+                <td>@item.Email</td>
+                <td>@item.Course</td>
+                <td>@item.Teacher</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
