@@ -7,7 +7,7 @@
 <h1>GetStudents</h1>
 
 <p>
-    <a asp-action="AddStudent" asp-controller="Admin">Create New</a>
+    <a asp-action="AddStudent" asp-controller="Admin" class=" btn btn-primary">Create New</a>
 </p>
 <table class="table table-hover">
     <thead>
@@ -19,26 +19,33 @@
             <th scope="col">Email</th>
             <th scope="col">Course</th>
             <th scope="col">Teacher</th>
-            <th></th>
+            <th scope="col">Image</th>
+
+
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+        @foreach (var item in Model)
+        {
+            <tr>
                 <td>@item.StudentId</td>
                 <td>@item.FirstName</td>
                 <td>@item.LastName</td>
-                <td>@item.DateOfBirth</td>
+                <td>@item.DateOfBirth.ToString("dd-MM-yyyy")</td>
                 <td>@item.Email</td>
                 <td>@item.Course</td>
                 <td>@item.Teacher</td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
-            </td>
-        </tr>
-}
+                <td>
+                    <img src="@item.StudentImageURL" height="70px" width="70px" alt="Image  " />
+                </td>
+                <td>
+                    <a asp-controller="Admin" asp-action="EditStudent" asp-route-id="@item.StudentId" class="btn btn-info">Edit</a>
+                    
+                    <a asp-controller="Admin" asp-action="DeleteStudent" asp-route-id="@item.StudentId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

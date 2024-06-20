@@ -5,6 +5,7 @@ namespace Task_Student_Teacher_Course__Management_System.Repository.IRepository
 {
 	public interface ICourseRepository : IRepository<Course>
 	{
-		void Update(Course course);
+        Course GetById(int courseId);
+        void Update(Course course);
 	}
 }

@@ -11,6 +11,8 @@
 
         IStudentRepository Student { get; set; }
 
+        ICourseRepository Course { get; set; }
+
         
 
         

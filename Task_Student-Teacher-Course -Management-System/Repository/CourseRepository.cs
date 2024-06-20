@@ -13,7 +13,12 @@ namespace Task_Student_Teacher_Course__Management_System.Repository
 			_db = db;
 		}
 
-		public void Update(Course course)
+        public Course GetById(int courseId)
+        {
+			return _db.Courses.Find(courseId);
+        }
+
+        public void Update(Course course)
 		{
 			_db.Courses.Update(course);
 		}

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Task_Student_Teacher_Course__Management_System.Models.Course>
+
+@{
+    ViewData["Title"] = "GetCourses";
+}
+
+<h1>GetCourses</h1>
+
+<p>
+    <a asp-action="AddCourse" asp-controller="Admin" class="btn btn-primary">Create New Course</a>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseFee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeacherName)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseFee)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeacherName)
+                </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.CourseId" class="btn btn-info">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.CourseId" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

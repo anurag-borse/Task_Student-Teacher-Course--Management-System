@@ -8,11 +8,18 @@ namespace Task_Student_Teacher_Course__Management_System.Models
         public int CourseId { get; set; }
 
         [Required(ErrorMessage = "Please Enter Course Name")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Course Name can only contain letters.")]
         public string CourseName { get; set; }
 
 
-        [Required(ErrorMessage = "Please Select Teacher Name")]
-        public string TeacherName { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Course Fee")]
+        [Range(1, int.MaxValue, ErrorMessage = "Course Fee must be a positive number")]
+        public int CourseFee { get; set; }
+
+
+
+        public string? TeacherName { get; set; }
 
 
 
