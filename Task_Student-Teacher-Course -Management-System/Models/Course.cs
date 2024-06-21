@@ -8,8 +8,9 @@ namespace Task_Student_Teacher_Course__Management_System.Models
         public int CourseId { get; set; }
 
         [Required(ErrorMessage = "Please Enter Course Name")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Course Name can only contain letters.")]
+        [RegularExpression(@"^[a-zA-Z0-9#\-\+\s]+$", ErrorMessage = "Course Name can only contain letters, numbers, spaces, #, -, and +.")]
         public string CourseName { get; set; }
+
 
 
 
