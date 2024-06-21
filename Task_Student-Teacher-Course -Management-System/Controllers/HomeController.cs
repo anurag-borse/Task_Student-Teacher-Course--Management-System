@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Task_Student_Teacher_Course__Management_System.Data;
 using Task_Student_Teacher_Course__Management_System.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Task_Student_Teacher_Course__Management_System.Controllers
 {
@@ -43,6 +45,9 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
             {
                 if (admin.AdminPassword == password)
                 {
+
+                    HttpContext.Session.SetInt32("AdminId", admin.AdminId);
+                    HttpContext.Session.SetString("AdminEmail", admin.AdminEmail);
                     return RedirectToAction("Index");
                 }
             }
@@ -58,5 +63,15 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
 
 
 
+
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+           
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Login", "Home");
+        }
     }
 }

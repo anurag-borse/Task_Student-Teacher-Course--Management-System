@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HRMS.Repository;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Task_Student_Teacher_Course__Management_System.Models;
 using Task_Student_Teacher_Course__Management_System.Repository.IRepository;
+using System.Linq;
+
 
 namespace Task_Student_Teacher_Course__Management_System.Controllers
 {
@@ -17,10 +20,20 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
 
         //-------------------------------For Students--------------------------------
 
+
         [HttpGet]
-        public IActionResult GetStudents()
+        public IActionResult GetStudents(string searchString)
         {
             var students = unitOfWork.Student.GetAll();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.FirstName.Contains(searchString) ||
+                                               s.LastName.Contains(searchString) ||
+                                               s.Course.Contains(searchString) ||
+                                               s.StudentId.ToString().Contains(searchString)||
+                                               s.Teacher.Contains(searchString)).ToList();
+            }
 
             return View(students);
         }
@@ -51,7 +64,7 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
                     {
                         Image.CopyTo(fileStream);
                     }
-                    student.StudentImageURL = Path.Combine("/Image", fileName).Replace("\\", "/"); 
+                    student.StudentImageURL = Path.Combine("/Image", fileName).Replace("\\", "/");
 
                 }
 
@@ -124,7 +137,7 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
 
                 int x = Int32.Parse(student.Course);
                 var course = unitOfWork.Course.GetById(x);
-                
+
 
                 studentinDb.Course = course.CourseName;
                 studentinDb.Teacher = course.TeacherName;
@@ -154,6 +167,9 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
             }
             return View();
         }
+
+
+
 
 
         //-------------------------------For Courses--------------------------------
@@ -210,14 +226,14 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
 
             Course courseinDb = unitOfWork.Course.GetById(course.CourseId);
 
-            if(courseinDb != null)
+            if (courseinDb != null)
             {
                 courseinDb.CourseName = course.CourseName;
                 courseinDb.CourseFee = course.CourseFee;
                 courseinDb.TeacherName = course.TeacherName;
                 unitOfWork.Course.Update(courseinDb);
                 unitOfWork.Save();
-                return RedirectToAction("GetCourses","Admin");
+                return RedirectToAction("GetCourses", "Admin");
             }
             return View();
         }
@@ -295,16 +311,16 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
             {
                 Teacher teacherinDb = unitOfWork.Teacher.GetById(teacher.TeacherId);
 
-                if(teacherinDb != null)
+                if (teacherinDb != null)
                 {
                     teacherinDb.FirstName = teacher.FirstName;
                     teacherinDb.LastName = teacher.LastName;
                     teacherinDb.Salary = teacher.Salary;
-                    teacherinDb.Course= teacher.Course;
+                    teacherinDb.Course = teacher.Course;
 
                     unitOfWork.Teacher.Update(teacherinDb);
                     unitOfWork.Save();
-                    return RedirectToAction("GetTeachers","Admin");
+                    return RedirectToAction("GetTeachers", "Admin");
 
                 }
 

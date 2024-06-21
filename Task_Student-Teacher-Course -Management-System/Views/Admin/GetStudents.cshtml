@@ -8,12 +8,25 @@
 @* for sweet alert  *@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
 
 <h1>GetStudents</h1>
 
-<p>
+<div class="form-group row">
+    <div class="col-sm-10">
+
     <a asp-action="AddStudent" asp-controller="Admin" class=" btn btn-primary">Create New</a>
-</p>
+    <a asp-action="GetStudents" asp-controller="Admin" class="btn btn-warning ml-2">Back to List</a>
+    </div>
+</div>
+
+<form asp-action="GetStudents" method="get">
+    <div class="form-group mt-2">
+        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search by FirstName, LastName, Course, StudentId">
+        <button type="submit" class="btn btn-primary mt-2">Search</button>
+    </div>
+</form>
+
 <table class="table table-hover">
     <thead>
         <tr>
@@ -53,6 +66,10 @@
         }
     </tbody>
 </table>
+
+
+
+<script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.0.8/datatables.min.js"></script>
 
 
 <script>

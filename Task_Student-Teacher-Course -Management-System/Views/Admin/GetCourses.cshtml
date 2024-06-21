@@ -7,12 +7,19 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
+
+<link href="~/css/datatables.bootstrap4.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"></script>
+<script src="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css"></script>
+
+
+
 <h1>GetCourses</h1>
 
 <p>
     <a asp-action="AddCourse" asp-controller="Admin" class="btn btn-primary">Create New Course</a>
 </p>
-<table class="table table-hover">
+<table class="table table-hover" id="courseTable">
     <thead>
         <tr>
             <th>
@@ -48,6 +55,16 @@
     </tbody>
 </table>
 
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+
+
+
 <script>
     document.querySelectorAll('.deleteButton').forEach(button => {
         button.addEventListener('click', function (event) {
@@ -74,4 +91,14 @@
             })
         });
     });
+
+
+
+
+
+    new DataTable('#courseTable');
+
 </script>
+
+
+
