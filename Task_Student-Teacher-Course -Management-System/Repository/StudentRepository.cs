@@ -1,4 +1,6 @@
-﻿using Task_Student_Teacher_Course__Management_System.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using Task_Student_Teacher_Course__Management_System.Data;
 using Task_Student_Teacher_Course__Management_System.Models;
 using Task_Student_Teacher_Course__Management_System.Repository.IRepository;
 
@@ -23,6 +25,15 @@ namespace Task_Student_Teacher_Course__Management_System.Repository
 		{
 			_db.Students.Update(obj);
 		}
-	}
+        public IQueryable<Student> GetAllWithIncludes(params Expression<Func<Student, object>>[] includeProperties)
+        {
+            IQueryable<Student> query = _db.Students;
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+            return query;
+        }
+    }
 	
 }

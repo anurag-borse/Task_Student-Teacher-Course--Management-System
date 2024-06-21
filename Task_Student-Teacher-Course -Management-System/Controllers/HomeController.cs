@@ -62,10 +62,26 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
         }
 
 
+		[HttpGet]
+		public IActionResult Register()
+		{
+			return View();
+		}
+
+        [HttpPost]
+        public IActionResult Register(Admin admin )
+        {
+            if (ModelState.IsValid)
+			{
+				unitOfWork.Admin.Add(admin);
+				unitOfWork.Save();
+				return RedirectToAction("Login");
+			}
+            return View();
+        }
 
 
-
-        [HttpGet]
+			[HttpGet]
         public async Task<IActionResult> Logout()
         {
            

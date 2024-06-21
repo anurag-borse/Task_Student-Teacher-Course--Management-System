@@ -1,4 +1,4 @@
-﻿@model Task_Student_Teacher_Course__Management_System.Models.Student
+﻿@model Task_Student_Teacher_Course__Management_System.Models.ViewModels.StudentViewModel
 
 @{
     ViewData["Title"] = "Add Student";
@@ -6,79 +6,72 @@
 
 <h1>Add Student</h1>
 
-<form method="post" asp-action="AddStudent" asp-controller="Admin" enctype="multipart/form-data">
+<hr />
 
+<form asp-action="AddStudent" asp-controller="Admin" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group row" style="margin-top:4px">
-        <label class="col-sm-2 col-form-label">First Name</label>
+        <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" asp-for="FirstName" placeholder="Enter First Name">
+            <input asp-for="FirstName" class="form-control" />
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
     </div>
 
-
     <div class="form-group row" style="margin-top:4px">
-        <label class="col-sm-2 col-form-label">Last Name</label>
+        <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" asp-for="LastName" placeholder="Enter Last Name">
+            <input asp-for="LastName" class="form-control" />
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
     </div>
 
-
     <div class="form-group row" style="margin-top:4px">
-        <label class="col-sm-2 col-form-label">Date Of Birth</label>
+        <label asp-for="DateOfBirth" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <input type="date" class="form-control" asp-for="DateOfBirth" placeholder="Enter Date Of Birth">
+            <input type="date" asp-for="DateOfBirth" class="form-control" />
             <span asp-validation-for="DateOfBirth" class="text-danger"></span>
         </div>
     </div>
 
-
     <div class="form-group row" style="margin-top:4px">
-        <label class="col-sm-2 col-form-label">Email</label>
+        <label class="col-sm-2 col-form-label">Upload Photo</label>
         <div class="col-sm-10">
-            <input type="email" class="form-control" asp-for="Email" placeholder="Enter Email">
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-    </div>
-
-
-    <div class="form-group row" style="margin-top:4px">
-        <label class="col-sm-2 col-form-label">Photo</label>
-        <div class="col-sm-10">
-            <input type="file" class="form-control" name="file" id="fileInput" placeholder="Enter Photo">
+            <input type="file" class="form-control" name="file" id="fileInput">
             <span id="fileError" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group row" style="margin-top:4px">
-        <label class="col-sm-2 col-form-label">Course</label>
+        <label asp-for="Email" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <select class="form-control" asp-for="Course">
-                @foreach (var course in ViewBag.Courses)
-                {
-                    <option value="@course.Value">@course.Text</option>
-                }
-            </select>
-            <span asp-validation-for="Course" class="text-danger"></span>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
     </div>
 
-
     <div class="form-group row" style="margin-top:4px">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <label class="col-sm-2 col-form-label">Courses</label>
+        <div class="col-sm-10">
+            <select class="form-control" asp-for="SelectedCourseIds" asp-items="Model.AvailableCourses" multiple="multiple">
+            </select>
+            <span asp-validation-for="SelectedCourseIds" class="text-danger"></span>
+        </div>
     </div>
 
-
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <input type="submit" value="Add" class="btn btn-primary" />
+            <a asp-action="GetStudents" asp-controller="Admin" class="btn btn-warning ml-2">Back to List</a>
+        </div>
+    </div>
 </form>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
     <script>
         document.getElementById('fileInput').addEventListener('change', function () {
             var fileInput = this;
@@ -95,7 +88,7 @@
             }
         });
 
-        document.getElementById('addStudentForm').addEventListener('submit', function (e) {
+        document.querySelector('form').addEventListener('submit', function (e) {
             var fileInput = document.getElementById('fileInput');
             var filePath = fileInput.value;
             var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
@@ -109,6 +102,4 @@
             }
         });
     </script>
-
-
 }

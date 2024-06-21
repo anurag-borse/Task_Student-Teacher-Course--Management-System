@@ -1,12 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Task_Student_Teacher_Course__Management_System.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
-
-namespace Task_Student_Teacher_Course__Management_System.Models
+namespace Task_Student_Teacher_Course__Management_System.Models.ViewModels
 {
-    public class Student
+    public class StudentViewModel
     {
-        [Key]
         public int StudentId { get; set; }
 
         [Required(ErrorMessage = "Please Enter First Name")]
@@ -27,7 +25,8 @@ namespace Task_Student_Teacher_Course__Management_System.Models
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
-        public ICollection<StudentCourse> StudentCourses { get; set; } = new List<StudentCourse>();
+        public List<int> SelectedCourseIds { get; set; } = new List<int>();
 
+        public IEnumerable<SelectListItem>? AvailableCourses { get; set; }
     }
 }

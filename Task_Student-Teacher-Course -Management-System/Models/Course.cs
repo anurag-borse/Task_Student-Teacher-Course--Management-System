@@ -22,7 +22,8 @@ namespace Task_Student_Teacher_Course__Management_System.Models
 
         public string? TeacherName { get; set; }
 
-
+        public ICollection<StudentCourse> StudentCourses { get; set; } = new List<StudentCourse>();
+       
 
     }
 }

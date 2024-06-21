@@ -1,7 +1,7 @@
-﻿@model Task_Student_Teacher_Course__Management_System.Models.Student
+﻿@model Task_Student_Teacher_Course__Management_System.Models.ViewModels.StudentViewModel
 
 @{
-    ViewData["Title"] = "EditStudent";
+    ViewData["Title"] = "Edit Student";
 }
 
 <h1>Edit Student</h1>
@@ -9,92 +9,66 @@
 <hr />
 
 <form asp-action="EditStudent" asp-controller="Admin" enctype="multipart/form-data">
-
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <input type="hidden" asp-for="StudentId" />
 
     <div class="form-group row" style="margin-top:4px">
-
         <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <input asp-for="FirstName" class="form-control" value="@Model.FirstName" />
+            <input asp-for="FirstName" class="form-control" />
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
     </div>
 
-
     <div class="form-group row" style="margin-top:4px">
-
         <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <input asp-for="LastName" class="form-control" value="@Model.LastName" />
+            <input asp-for="LastName" class="form-control" />
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group row" style="margin-top:4px">
-
         <label asp-for="DateOfBirth" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <input asp-for="DateOfBirth" class="form-control" value="@Model.DateOfBirth" />
+            <input asp-for="DateOfBirth" class="form-control" />
             <span asp-validation-for="DateOfBirth" class="text-danger"></span>
         </div>
     </div>
 
-
-    <div class="form-group row" style="margin-top:4px">
-        <label class="col-sm-2 col-form-label">Original Image</label>
-        <div class="col-sm-10">
-            <img src="@Model.StudentImageURL" height="100px" width="100px" alt="Alternate Text" />
-           
-            <span  class="text-danger"></span>
-        </div>
-    </div>
-
-
     <div class="form-group row" style="margin-top:4px">
         <label class="col-sm-2 col-form-label">Upload Photo</label>
         <div class="col-sm-10">
-            <input type="file" class="form-control" name="file" id="fileInput" placeholder="Enter Photo">
+            <input type="file" class="form-control" name="file" id="fileInput">
             <span id="fileError" class="text-danger"></span>
         </div>
     </div>
 
-
     <div class="form-group row" style="margin-top:4px">
-
         <label asp-for="Email" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <input asp-for="Email" class="form-control" value="@Model.Email" />
+            <input asp-for="Email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group row" style="margin-top:4px">
-        <label class="col-sm-2 col-form-label">Course</label>
+        <label class="col-sm-2 col-form-label">Courses</label>
         <div class="col-sm-10">
-            <select class="form-control" asp-for="Course">
-                @foreach (var course in ViewBag.Courses)
-                {
-                    <option value="@course.Value">@course.Text</option>
-                }
+            <select class="form-control" asp-for="SelectedCourseIds" asp-items="Model.AvailableCourses" multiple="multiple">
             </select>
-            <span asp-validation-for="Course" class="text-danger"></span>
+            <span asp-validation-for="SelectedCourseIds" class="text-danger"></span>
         </div>
     </div>
 
-   
-    
-
     <div class="form-group row">
         <div class="col-sm-10">
-            <input type="submit" value="Update" class="btn btn-primary" />
+            <input type="submit" value="Edit" class="btn btn-primary" />
             <a asp-action="GetStudents" asp-controller="Admin" class="btn btn-warning ml-2">Back to List</a>
         </div>
     </div>
 </form>
-
-
 
 @section Scripts {
     @{
@@ -116,13 +90,13 @@
             }
         });
 
-        document.getElementById('addStudentForm').addEventListener('submit', function (e) {
+        document.querySelector('form').addEventListener('submit', function (e) {
             var fileInput = document.getElementById('fileInput');
             var filePath = fileInput.value;
             var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
             var fileError = document.getElementById('fileError');
 
-            if (!allowedExtensions.exec(filePath)) {
+            if (fileInput.files.length > 0 && !allowedExtensions.exec(filePath)) {
                 fileError.textContent = "Only jpg and png files are allowed.";
                 e.preventDefault();
             } else {
@@ -130,5 +104,4 @@
             }
         });
     </script>
-
 }

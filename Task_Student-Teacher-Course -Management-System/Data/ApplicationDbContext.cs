@@ -17,11 +17,12 @@ namespace Task_Student_Teacher_Course__Management_System.Data
 		public DbSet<Teacher> Teachers { get; set; }
 		public DbSet<Course> Courses { get; set; }
 		public DbSet<Student> Students { get; set; }
+        public DbSet<StudentCourse> StudentCourses { get; set; }
 
 
 
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Admin>().HasData(
 				new Admin
@@ -61,7 +62,26 @@ namespace Task_Student_Teacher_Course__Management_System.Data
 			);
 
 
-		}
+            modelBuilder.Entity<StudentCourse>()
+                .HasKey(sc => new { sc.StudentId, sc.CourseId });
+
+            modelBuilder.Entity<StudentCourse>()
+                .HasOne(sc => sc.Student)
+                .WithMany(s => s.StudentCourses)
+                .HasForeignKey(sc => sc.StudentId);
+
+            modelBuilder.Entity<StudentCourse>()
+                .HasOne(sc => sc.Course)
+                .WithMany(c => c.StudentCourses)
+                .HasForeignKey(sc => sc.CourseId);
+
+            modelBuilder.Entity<Student>()
+                .HasIndex(s => s.Email)
+                .IsUnique();
+
+
+
+        }
 
 
 
