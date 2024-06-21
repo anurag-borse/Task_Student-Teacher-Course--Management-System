@@ -12,8 +12,8 @@ using Task_Student_Teacher_Course__Management_System.Data;
 namespace Task_Student_Teacher_Course__Management_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240620052409_initial3")]
-    partial class initial3
+    [Migration("20240621053339_initial1111")]
+    partial class initial1111
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,12 +66,14 @@ namespace Task_Student_Teacher_Course__Management_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"), 1L, 1);
 
+                    b.Property<int>("CourseFee")
+                        .HasColumnType("int");
+
                     b.Property<string>("CourseName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TeacherName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CourseId");
@@ -82,6 +84,7 @@ namespace Task_Student_Teacher_Course__Management_System.Migrations
                         new
                         {
                             CourseId = 1,
+                            CourseFee = 0,
                             CourseName = "C#",
                             TeacherName = "Rahul"
                         });
@@ -134,7 +137,6 @@ namespace Task_Student_Teacher_Course__Management_System.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeacherId"), 1L, 1);
 
                     b.Property<string>("Course")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")

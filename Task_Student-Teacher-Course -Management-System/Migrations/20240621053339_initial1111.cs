@@ -1,15 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Task_Student_Teacher_Course__Management_System.Migrations
 {
-    public partial class initial : Migration
+    public partial class initial1111 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Admin",
+                name: "Admins",
                 columns: table => new
                 {
                     AdminId = table.Column<int>(type: "int", nullable: false)
@@ -20,25 +21,45 @@ namespace Task_Student_Teacher_Course__Management_System.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Admin", x => x.AdminId);
+                    table.PrimaryKey("PK_Admins", x => x.AdminId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Course",
+                name: "Courses",
                 columns: table => new
                 {
                     CourseId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CourseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TeacherName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CourseFee = table.Column<int>(type: "int", nullable: false),
+                    TeacherName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Course", x => x.CourseId);
+                    table.PrimaryKey("PK_Courses", x => x.CourseId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Teacher",
+                name: "Students",
+                columns: table => new
+                {
+                    StudentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StudentImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Course = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Teacher = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.StudentId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Teachers",
                 columns: table => new
                 {
                     TeacherId = table.Column<int>(type: "int", nullable: false)
@@ -46,25 +67,25 @@ namespace Task_Student_Teacher_Course__Management_System.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Salary = table.Column<int>(type: "int", nullable: false),
-                    Course = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Course = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Teacher", x => x.TeacherId);
+                    table.PrimaryKey("PK_Teachers", x => x.TeacherId);
                 });
 
             migrationBuilder.InsertData(
-                table: "Admin",
+                table: "Admins",
                 columns: new[] { "AdminId", "AdminEmail", "AdminName", "AdminPassword" },
                 values: new object[] { 1, "admin@gmail.com", "Admin", "admin" });
 
             migrationBuilder.InsertData(
-                table: "Course",
-                columns: new[] { "CourseId", "CourseName", "TeacherName" },
-                values: new object[] { 1, "C#", "Rahul" });
+                table: "Courses",
+                columns: new[] { "CourseId", "CourseFee", "CourseName", "TeacherName" },
+                values: new object[] { 1, 0, "C#", "Rahul" });
 
             migrationBuilder.InsertData(
-                table: "Teacher",
+                table: "Teachers",
                 columns: new[] { "TeacherId", "Course", "FirstName", "LastName", "Salary" },
                 values: new object[] { 1, "C#", "Rahul", "Jadhav", 50000 });
         }
@@ -72,13 +93,16 @@ namespace Task_Student_Teacher_Course__Management_System.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Admin");
+                name: "Admins");
 
             migrationBuilder.DropTable(
-                name: "Course");
+                name: "Courses");
 
             migrationBuilder.DropTable(
-                name: "Teacher");
+                name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "Teachers");
         }
     }
 }

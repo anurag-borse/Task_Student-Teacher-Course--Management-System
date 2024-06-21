@@ -191,6 +191,55 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
 
 
 
+        [HttpGet]
+        public IActionResult EditCourse(int id)
+        {
+            Course course = unitOfWork.Course.GetById(id);
+
+            var teacher = unitOfWork.Teacher.GetAll();
+            ViewBag.Teachers = new SelectList(teacher, "TeacherId", "FirstName");
+
+
+            return View(course);
+        }
+
+
+        [HttpPost]
+        public IActionResult EditCourse(Course course)
+        {
+
+            Course courseinDb = unitOfWork.Course.GetById(course.CourseId);
+
+            if(courseinDb != null)
+            {
+                courseinDb.CourseName = course.CourseName;
+                courseinDb.CourseFee = course.CourseFee;
+                courseinDb.TeacherName = course.TeacherName;
+                unitOfWork.Course.Update(courseinDb);
+                unitOfWork.Save();
+                return RedirectToAction("GetCourses","Admin");
+            }
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult DeleteCourse(int id)
+        {
+
+            Course course = unitOfWork.Course.GetById(id);
+
+            if (course != null)
+            {
+                unitOfWork.Course.Remove(course);
+                unitOfWork.Save();
+                return RedirectToAction("GetCourses");
+            }
+            return View();
+        }
+
+
+
 
 
         //-------------------------------For Teachers--------------------------------
@@ -228,6 +277,57 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult EditTeacher(int id)
+        {
+            Teacher teacher = unitOfWork.Teacher.GetById(id);
+
+            var courses = unitOfWork.Course.GetAll();
+            ViewBag.Courses = new SelectList(courses, "CourseId", "CourseName", "TeacherName");
+
+            return View(teacher);
+        }
+
+        [HttpPost]
+        public IActionResult EditTeacher(Teacher teacher)
+        {
+            if (ModelState.IsValid)
+            {
+                Teacher teacherinDb = unitOfWork.Teacher.GetById(teacher.TeacherId);
+
+                if(teacherinDb != null)
+                {
+                    teacherinDb.FirstName = teacher.FirstName;
+                    teacherinDb.LastName = teacher.LastName;
+                    teacherinDb.Salary = teacher.Salary;
+                    teacherinDb.Course= teacher.Course;
+
+                    unitOfWork.Teacher.Update(teacherinDb);
+                    unitOfWork.Save();
+                    return RedirectToAction("GetTeachers","Admin");
+
+                }
+
+
+            }
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult DeleteTeacher(int id)
+        {
+
+            Teacher teacher = unitOfWork.Teacher.GetById(id);
+
+            if (teacher != null)
+            {
+                unitOfWork.Teacher.Remove(teacher);
+                unitOfWork.Save();
+                return RedirectToAction("GetTeachers");
+            }
+            return View();
+        }
 
 
 

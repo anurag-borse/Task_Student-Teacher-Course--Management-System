@@ -4,6 +4,11 @@
     ViewData["Title"] = "GetStudents";
 }
 
+
+@* for sweet alert  *@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <h1>GetStudents</h1>
 
 <p>
@@ -41,8 +46,8 @@
                 </td>
                 <td>
                     <a asp-controller="Admin" asp-action="EditStudent" asp-route-id="@item.StudentId" class="btn btn-info">Edit</a>
-                    
-                    <a asp-controller="Admin" asp-action="DeleteStudent" asp-route-id="@item.StudentId" class="btn btn-danger">Delete</a>
+
+                    <a asp-controller="Admin" asp-action="DeleteStudent" asp-route-id="@item.StudentId" class="btn btn-danger deleteButton">Delete</a>
                 </td>
             </tr>
         }
@@ -50,3 +55,30 @@
 </table>
 
 
+<script>
+    document.querySelectorAll('.deleteButton').forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            const href = this.getAttribute('href');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Delete this Student!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Deleted!',
+                        'This Student has been deleted.',
+                        'success'
+                    ).then(() => {
+                        window.location.href = href;
+                    });
+                }
+            })
+        });
+    });
+</script>

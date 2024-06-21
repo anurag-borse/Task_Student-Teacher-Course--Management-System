@@ -4,6 +4,10 @@
     ViewData["Title"] = "GetTeachers";
 }
 
+
+@* for sweet alert  *@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <h1>GetTeachers</h1>
 
 <p>
@@ -44,10 +48,39 @@
                     @Html.DisplayFor(modelItem => item.Course)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.TeacherId" class="btn btn-info">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.TeacherId" class="btn btn-danger">Delete</a>
+                    <a asp-controller="Admin" asp-action="EditTeacher" asp-route-id="@item.TeacherId" class="btn btn-info">Edit</a>
+                    <a asp-controller="Admin" asp-action="DeleteTeacher" asp-route-id="@item.TeacherId" class="btn btn-danger deleteButton">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+<script>
+    document.querySelectorAll('.deleteButton').forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            const href = this.getAttribute('href');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Delete this Teacher!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Deleted!',
+                        'This teacher has been deleted.',
+                        'success'
+                    ).then(() => {
+                        window.location.href = href;
+                    });
+                }
+            })
+        });
+    });
+</script>
