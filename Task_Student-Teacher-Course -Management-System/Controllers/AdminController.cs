@@ -22,10 +22,11 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
         //-------------------------------For Students--------------------------------
 
         [HttpGet]
-        public IActionResult GetStudents(string searchString)
+        public IActionResult GetStudents(string searchString, string sortOrder)
         {
             var students = unitOfWork.Student.GetAll();
 
+            // this is for searching
             if (!string.IsNullOrEmpty(searchString))
             {
                 students = students.Where(s => s.FirstName.Contains(searchString) ||
@@ -35,8 +36,36 @@ namespace Task_Student_Teacher_Course__Management_System.Controllers
                                                s.StudentCourses.Any(sc => sc.Course.TeacherName.Contains(searchString))).ToList();
             }
 
+            // this is for sorting
+            ViewData["StudentIdSortParam"] = string.IsNullOrEmpty(sortOrder) ? "studentId_desc" : "";
+            ViewData["FirstNameSortParam"] = sortOrder == "FirstName" ? "firstName_desc" : "FirstName";
+            ViewData["LastNameSortParam"] = sortOrder == "LastName" ? "lastName_desc" : "LastName";
+
+            switch (sortOrder)
+            {
+                case "studentId_desc":
+                    students = students.OrderByDescending(s => s.StudentId).ToList();
+                    break;
+                case "FirstName":
+                    students = students.OrderBy(s => s.FirstName).ToList();
+                    break;
+                case "firstName_desc":
+                    students = students.OrderByDescending(s => s.FirstName).ToList();
+                    break;
+                case "LastName":
+                    students = students.OrderBy(s => s.LastName).ToList();
+                    break;
+                case "lastName_desc":
+                    students = students.OrderByDescending(s => s.LastName).ToList();
+                    break;
+                default:
+                    students = students.OrderBy(s => s.StudentId).ToList();
+                    break;
+            }
+
             return View(students);
         }
+
 
         public IActionResult AddStudent()
         {
