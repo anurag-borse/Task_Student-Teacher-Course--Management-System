@@ -4,81 +4,60 @@
     ViewData["Title"] = "EditTeacher";
 }
 
-<h1>EditTeacher</h1>
-
-
+<h1>Edit Teacher</h1>
 <hr />
 
-<form asp-action="EditTeacher">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="TeacherId" />
+<div class="container">
+    <form asp-action="EditTeacher" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="TeacherId" />
 
-
-    <div class="form-group row" style="margin-top:4px">
-        <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-            <input asp-for="FirstName" class="form-control" />
-            <span asp-validation-for="FirstName" class="text-danger"></span>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">First Name:</label>
+            <div class="col-sm-10">
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
         </div>
-    </div>
 
-
-
-    <div class="form-group row" style="margin-top:4px">
-        <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-            <input asp-for="LastName" class="form-control" />
-            <span asp-validation-for="LastName" class="text-danger"></span>
+        <div class="form-group row" style="margin-top: 5px">
+            <label class="col-sm-2 col-form-label">Last Name:</label>
+            <div class="col-sm-10">
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
         </div>
-    </div>
 
-
-    
-
-
-    <div class="form-group row" style="margin-top:4px">
-        <label asp-for="Salary" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-
-
-            <input asp-for="Salary" class="form-control" />
-            <span asp-validation-for="Salary" class="text-danger"></span>
+        <div class="form-group row" style="margin-top: 5px">
+            <label class="col-sm-2 col-form-label">Salary:</label>
+            <div class="col-sm-10">
+                <input asp-for="Salary" class="form-control" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
         </div>
-    </div>
 
-
-
-
-
-
-    <div class="form-group row" style="margin-top:4px">
-        <label class="col-sm-2 col-form-label">Course</label>
-        <div class="col-sm-10">
-            <select class="form-control" asp-for="Course">
-                <option value="NA">Select</option>
-
-                @foreach (var course in ViewBag.Courses)
-                {
-                    <option value="@course.Text">@course.Text</option>
-                }
-            </select>
-            <span asp-validation-for="Course" class="text-danger"></span>
+        <div class="form-group row" style="margin-top: 5px">
+            <label class="col-sm-2 col-form-label">Course:</label>
+            <div class="col-sm-10">
+                <select class="form-control" asp-for="Course">
+                    <option value="NA">Select</option>
+                    @foreach (var course in ViewBag.Courses)
+                    {
+                        <option value="@course.Text">@course.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="Course" class="text-danger"></span>
+            </div>
         </div>
-    </div>
 
-
-
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <input type="submit" value="Update" class="btn btn-primary" />
-            <a asp-action="GetTeachers" asp-controller="Admin" class="btn btn-warning ml-2">Back to List</a>
+        <div class="form-group row" style="margin-top: 5px">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a asp-action="GetTeachers" asp-controller="Admin" class="btn btn-warning ml-2">Back to List</a>
+            </div>
         </div>
-    </div>
-
-
-</form>
-
-
+    </form>
+</div>
 
 @section Scripts {
     @{

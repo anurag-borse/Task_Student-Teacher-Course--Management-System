@@ -6,13 +6,8 @@
     <title>@ViewData["Title"] - Task_Student_Teacher_Course__Management_System</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Task_Student_Teacher_Course__Management_System.styles.css" asp-append-version="true" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-   
-
 </head>
 <body>
     <header>
@@ -65,8 +60,6 @@
                 border-radius: 5px;
             }
         </style>
-
-
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -74,16 +67,13 @@
         </main>
     </div>
 
-    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-
-
     <script>
         document.getElementById('logoutLink').addEventListener('click', function (event) {
-            event.preventDefault(); 
+            event.preventDefault();
 
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -114,8 +104,6 @@
             });
         });
     </script>
-
-
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

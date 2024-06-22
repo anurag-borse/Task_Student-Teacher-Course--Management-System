@@ -3,67 +3,52 @@
 @{
     ViewData["Title"] = "GetCourses";
 }
-@* for sweet alert  *@
+
+@* for sweet alert *@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
+<h1 class="text-center my-4">Course Management</h1>
 
-<link href="~/css/datatables.bootstrap4.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"></script>
-<script src="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css"></script>
+<div class="form-group row mb-4">
+    <div class="col-sm-12 text-center">
+        <a asp-action="AddCourse" asp-controller="Admin" class="btn btn-primary">Create New Course</a>
+    </div>
+</div>
 
-
-
-<h1>GetCourses</h1>
-
-<p>
-    <a asp-action="AddCourse" asp-controller="Admin" class="btn btn-primary">Create New Course</a>
-</p>
-<table class="table table-hover" id="courseTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseFee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TeacherName)
-            </th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseFee)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TeacherName)
-                </td>
-            <td>
-                    <a asp-action="EditCourse" asp-route-id="@item.CourseId" class="btn btn-info">Edit</a>
-                    <a asp-action="DeleteCourse" asp-route-id="@item.CourseId" class="btn btn-danger deleteButton">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-
-
+<div class="table-responsive">
+    <table class="table table-hover table-bordered" id="courseTable">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.CourseName)</th>
+                <th>@Html.DisplayNameFor(model => model.CourseFee)</th>
+                <th>@Html.DisplayNameFor(model => model.TeacherName)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.CourseName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CourseFee)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TeacherName)</td>
+                    <td class="text-center">
+                        <a asp-action="EditCourse" asp-route-id="@item.CourseId" class="btn btn-info btn-sm">Edit</a>
+                        <a asp-action="DeleteCourse" asp-route-id="@item.CourseId" class="btn btn-danger btn-sm deleteButton">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
-
-
+<script src="https://cdn.datatables.net/2.0.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
     document.querySelectorAll('.deleteButton').forEach(button => {
@@ -92,13 +77,27 @@
         });
     });
 
-
-
-
-
-    new DataTable('#courseTable');
-
+    $(document).ready(function () {
+        $('#courseTable').DataTable();
+    });
 </script>
 
+<style>
+    .sort-link {
+        text-decoration: none;
+        color: inherit;
+    }
 
+        .sort-link:hover {
+            color: #000;
+        }
 
+    .form-control {
+        max-width: 300px;
+        margin: auto;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+</style>
